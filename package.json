@@ -1,0 +1,35 @@
+{
+  "name": "cloud-run-test",
+  "description": "Test app for Cloud Run",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kylie-sre/cloud-run-test.git"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "system-test": "repo-tools test app -- server.js",
+    "test": "npm run system-test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^3.3.0"
+  },
+  "cloud-repo-tools": {
+    "test": {
+      "app": {
+        "msg": "Hello Kubernetes!",
+        "args": [
+          "server.js"
+        ]
+      }
+    },
+    "requiresKeyFile": true,
+    "requiresProjectId": true
+  }
+}

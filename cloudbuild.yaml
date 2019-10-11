@@ -1,0 +1,24 @@
+steps:
+  # build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/unity-ie-sre-isolated-test/cloud-run-test', '.']
+    # push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/unity-ie-sre-isolated-test/cloud-run-test']
+    # Deploy container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - beta
+      - run
+      - deploy
+      - cloud-run-test
+      - --image
+      - gcr.io/unity-ie-sre-isolated-test/cloud-run-test
+      - --region
+      - us-central1
+      - --platform
+      - managed
+      - --quiet
+      - --allow-unauthenticated
+images:
+  - gcr.io/unity-ie-sre-isolated-test/cloud-run-test
